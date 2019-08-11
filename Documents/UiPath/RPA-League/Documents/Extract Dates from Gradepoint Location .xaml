@@ -1,0 +1,308 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Extract_Dates_from_Gradepoint_Location" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="argReadRange" Type="OutArgument(sd:DataTable)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>832,3333.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="66">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>UiPath.Mail.Exchange.Activities</x:String>
+      <x:String>UiPath.Mail.IMAP.Activities</x:String>
+      <x:String>UiPath.Mail.Outlook.Activities</x:String>
+      <x:String>UiPath.Mail.POP3.Activities</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.Orchestrator.Client</x:String>
+      <x:String>UiPath.Orchestrator.Client.Models</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="42">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OrchestratorClient</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap:VirtualizedContainerService.HintSize="792,3213.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="row" />
+      <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="ExtractDataTable" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ClassData" />
+      <Variable x:TypeArguments="s:String[]" Name="columnList" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:ClickOCRText ContinueOnError="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click on 'Grades'" sap:VirtualizedContainerService.HintSize="754,200.666666666667" sap2010:WorkflowViewState.IdRef="ClickOCRText_1" KeyModifiers="None" MouseButton="BTN_LEFT" Occurrence="1" SendWindowMessages="False" Text="Grades">
+      <ui:ClickOCRText.CursorPosition>
+        <ui:CursorPosition Position="Center">
+          <ui:CursorPosition.OffsetX>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetX>
+          <ui:CursorPosition.OffsetY>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetY>
+        </ui:CursorPosition>
+      </ui:ClickOCRText.CursorPosition>
+      <ui:ClickOCRText.OCREngine>
+        <ActivityFunc x:TypeArguments="sd1:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
+          <ActivityFunc.Argument>
+            <DelegateInArgument x:TypeArguments="sd1:Image" Name="Image" />
+          </ActivityFunc.Argument>
+          <ui:GoogleOCR FilterRegion="{x:Null}" Output="{x:Null}" Text="{x:Null}" AllowedCharacters="" ComputeSkewAngle="False" DeniedCharacters="" DisplayName="Tesseract OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="216,22" sap2010:WorkflowViewState.IdRef="GoogleOCR_1" Image="[Image]" Invert="False" Language="eng" Profile="Screen" Scale="2" />
+        </ActivityFunc>
+      </ui:ClickOCRText.OCREngine>
+      <ui:ClickOCRText.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f982bb7ac1a29752e36d226f9b18af9c" Selector="&lt;html app='ApplicationFrameHost.exe' title='Activity Stream' /&gt;&lt;webctrl aaname='                                            Grades             ' parentid='base_tools' tag='A' /&gt;" WaitForReady="INTERACTIVE" />
+      </ui:ClickOCRText.Target>
+    </ui:ClickOCRText>
+    <ui:AnchorBase AnchorPosition="Auto" DisplayName="Find Class" sap:VirtualizedContainerService.HintSize="754,198" sap2010:WorkflowViewState.IdRef="AnchorBase_1">
+      <ui:AnchorBase.Action>
+        <ActivityAction x:TypeArguments="ui:Anchor">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="ui:Anchor" Name="ContextAnchor" />
+          </ActivityAction.Argument>
+          <ui:ClickImage ContinueOnError="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click Image 'chrome.exe  Grades'" sap:VirtualizedContainerService.HintSize="330,106" sap2010:WorkflowViewState.IdRef="ClickImage_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False">
+            <ui:ClickImage.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:ClickImage.CursorPosition>
+            <ui:ClickImage.Image>
+              <ui:ImageTarget Image="{x:Null}" Accuracy="0.8" InitialScalingFactor="1.5" TargetImageBase64="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" />
+            </ui:ClickImage.Image>
+            <ui:ClickImage.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+            </ui:ClickImage.Target>
+          </ui:ClickImage>
+        </ActivityAction>
+      </ui:AnchorBase.Action>
+      <ui:AnchorBase.AnchorProvider>
+        <ui:WaitUiElementAppear FoundElement="{x:Null}" DisplayName="Find Element 'SPAN'" sap:VirtualizedContainerService.HintSize="330,106" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_2" WaitActive="False" WaitVisible="False">
+          <ui:WaitUiElementAppear.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="63b97bfda48ed9ceb287a9e20f81a57a" Selector="&lt;html app='ApplicationFrameHost.exe' title='Grades' /&gt;&lt;webctrl aaname='19S-MGT-B325-MASTER' idx='2' parentid='card__66828_1' tag='SPAN' /&gt;" WaitForReady="INTERACTIVE" />
+          </ui:WaitUiElementAppear.Target>
+        </ui:WaitUiElementAppear>
+      </ui:AnchorBase.AnchorProvider>
+    </ui:AnchorBase>
+    <Sequence DisplayName="Scrape Dates from Class" sap:VirtualizedContainerService.HintSize="754,2642.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence DisplayName="Data Scraping" sap:VirtualizedContainerService.HintSize="544,1110.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_6">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="x:String" Name="columnItem" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Edge" DisplayName="Attach Browser 'CourseCon Page'" sap:VirtualizedContainerService.HintSize="430,344" sap2010:WorkflowViewState.IdRef="BrowserScope_2" InformativeScreenshot="736c93a7c885d0ac276c1371cae8060f" Selector="&lt;html app='ApplicationFrameHost.exe' title='Course Content' /&gt;">
+          <ui:BrowserScope.Body>
+            <ActivityAction x:TypeArguments="x:Object">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="368,198" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:ExtractData NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractDataTable]" DelayBetweenPagesMS="300" DisplayName="Extract Structured Data 'DIV  grades_wrapper'" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' /&gt;&lt;/row&gt;&lt;column name='Assignment' exact='1' attr='text'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl class='cell gradable' tag='div' idx='1' /&gt;&lt;/column&gt;&lt;column name='Due Date' exact='1' attr='text'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl class='cell gradable' tag='div' /&gt;&lt;webctrl class='activityType' tag='div' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="330,106" sap2010:WorkflowViewState.IdRef="ExtractData_4" MaxNumberOfResults="100">
+                  <ui:ExtractData.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2bf45b3b2f0414dc0f74556d432c2e89" Selector="&lt;webctrl id='grades_wrapper' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:ExtractData.Target>
+                </ui:ExtractData>
+              </Sequence>
+            </ActivityAction>
+          </ui:BrowserScope.Body>
+        </ui:BrowserScope>
+        <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="Get Assignment Name" sap:VirtualizedContainerService.HintSize="430,508" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+          <ui:ForEachRow.Body>
+            <ActivityAction x:TypeArguments="sd:DataRow">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+              </ActivityAction.Argument>
+              <Sequence sap:VirtualizedContainerService.HintSize="296,356.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign sap:VirtualizedContainerService.HintSize="258,61.3333333333333" sap2010:WorkflowViewState.IdRef="Assign_2">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Object">[row("Assignment")]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Object">[split(row("Assignment").ToString,"Due: ")(0).ToString]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap:VirtualizedContainerService.HintSize="258,61.3333333333333" sap2010:WorkflowViewState.IdRef="Assign_6">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Object">[row("Due Date")]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">[row("Due Date").ToString.Replace("Due: ","")]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="258,62" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[row(0).ToString + row(1).ToString]" />
+              </Sequence>
+            </ActivityAction>
+          </ui:ForEachRow.Body>
+        </ui:ForEachRow>
+        <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" DataTable="[ExtractDataTable]" Delimitator="Comma" DisplayName="Write CSV" FilePath="StudentCalendertest1.csv" sap:VirtualizedContainerService.HintSize="430,86.6666666666667" sap2010:WorkflowViewState.IdRef="WriteCsvFile_2" />
+      </Sequence>
+      <Sequence DisplayName="Data Scraping from Class and Convert Format" sap:VirtualizedContainerService.HintSize="544,1400" sap2010:WorkflowViewState.IdRef="Sequence_14">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Sequence DisplayName="Scrape Dates from Class" sap:VirtualizedContainerService.HintSize="506,1308" sap2010:WorkflowViewState.IdRef="Sequence_13">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Data Scraping" sap:VirtualizedContainerService.HintSize="468,1216" sap2010:WorkflowViewState.IdRef="Sequence_12">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="columnItem" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Edge" DisplayName="Attach Browser 'CourseCon Page'" sap:VirtualizedContainerService.HintSize="430,344" sap2010:WorkflowViewState.IdRef="BrowserScope_3" InformativeScreenshot="736c93a7c885d0ac276c1371cae8060f" Selector="&lt;html app='ApplicationFrameHost.exe' title='Course Content' /&gt;">
+              <ui:BrowserScope.Body>
+                <ActivityAction x:TypeArguments="x:Object">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="368,198" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:ExtractData NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractDataTable]" DelayBetweenPagesMS="300" DisplayName="Extract Structured Data 'DIV  grades_wrapper'" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' /&gt;&lt;/row&gt;&lt;column name='Assignment' exact='1' attr='text'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl class='cell gradable' tag='div' idx='1' /&gt;&lt;/column&gt;&lt;column name='Due Date' exact='1' attr='text'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl class='cell gradable' tag='div' /&gt;&lt;webctrl class='activityType' tag='div' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="330,106" sap2010:WorkflowViewState.IdRef="ExtractData_5" MaxNumberOfResults="100">
+                      <ui:ExtractData.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2bf45b3b2f0414dc0f74556d432c2e89" Selector="&lt;webctrl id='grades_wrapper' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                      </ui:ExtractData.Target>
+                    </ui:ExtractData>
+                  </Sequence>
+                </ActivityAction>
+              </ui:BrowserScope.Body>
+            </ui:BrowserScope>
+            <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="Get Assignment Name" sap:VirtualizedContainerService.HintSize="430,511.333333333333" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+              <ui:ForEachRow.Body>
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                  </ActivityAction.Argument>
+                  <Sequence sap:VirtualizedContainerService.HintSize="296,358.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign sap:VirtualizedContainerService.HintSize="258,62" sap2010:WorkflowViewState.IdRef="Assign_7">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Object">[row("Assignment")]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Object">[split(row("Assignment").ToString,"Due: ")(0).ToString]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign sap:VirtualizedContainerService.HintSize="258,62" sap2010:WorkflowViewState.IdRef="Assign_8">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Object">[row("Due Date")]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[row("Due Date").ToString.Replace("Due: ","")]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="258,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[row(0).ToString + row(1).ToString]" />
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEachRow.Body>
+            </ui:ForEachRow>
+            <Assign sap:VirtualizedContainerService.HintSize="430,62" sap2010:WorkflowViewState.IdRef="Assign_9">
+              <Assign.To>
+                <OutArgument x:TypeArguments="sd:DataTable">[argReadRange]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="sd:DataTable">[ExtractDataTable]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" DataTable="[ExtractDataTable]" Delimitator="Comma" DisplayName="Write CSV" FilePath="StudentCalendertest1.csv" sap:VirtualizedContainerService.HintSize="430,86.6666666666667" sap2010:WorkflowViewState.IdRef="WriteCsvFile_3" />
+          </Sequence>
+        </Sequence>
+      </Sequence>
+    </Sequence>
+  </Sequence>
+</Activity>
